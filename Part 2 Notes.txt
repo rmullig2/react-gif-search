@@ -1,0 +1,36 @@
+Redux is a state management library that stores the entire state of your application in a single object tree known as a store. Instead of components communicating with each other to send state back and forth, they get their state directly from the store. They also inform the store of any changes to the state that need to happen instead of directly mutating the state themselves.
+
+Three core principles:
+
+1. Single Source of Truth - instead of using this.state in the constructors we put the state into an object tree within a single store
+2. State is read-only - application should dispatch an action to mutate the store
+3. Changes are made with pure functions - reducers handle the change to your state tree, take two arguments and return a new state object
+
+Root reducer uses the redux combineReducer function to create a single object containing a bunch of reducers
+
+Redux createStore function takes the root reducer as a parameter to initialize the store
+
+container - smart React component that's hooked directly into the store
+components - dumb React components that are unaware of Redux
+
+react-redux Provider takes a store object and wraps App and other containers thereby providing access to the store through connect
+react-redux connect links React and Redux by pulling Redux state into React props
+
+mapStateToProps - allows the specified component to subscribe to the store update, returns a plain object as props, pass data to container
+mapDispatchToProps - allows container to tell store that it needs to change, add action container as props, pass data to store
+
+action - plain JavaScript object that sends data from our application to our store, composed of a type and a payload
+export const REQUEST_GIFS = 'REQUEST_GIFS';		# action type - set a constant to be the action
+ 
+export function requestGifs(term = null) {		# action creator - function that creates the actions
+  console.log(term);
+  return {
+    type: REQUEST_GIFS,					# action
+    term
+  }
+}
+
+bindActionCreators - takes a single object whose values are action creators and wraps every action creator in a dispatch call so that they can be invoked within our container
+
+
+
