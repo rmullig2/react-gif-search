@@ -1,0 +1,57 @@
+Navbar will be placed into Header container
+Header needs to know if user is signed in and when user signs out
+
+Signup, Login, Favorites are all placed in containers
+
+React Router watches for changes in the URL and updates the components accordingly, App will render whatever React Router tells it to
+
+App container is renamed to Home
+A new App component is created to hold the route paths
+Header container contains the html for the route paths (Bootstrap)
+
+Link method from react-router-dom will update the page without a refresh
+
+redux-form - package for creating signup and login forms
+import reducer as FormReducer in the root reducer file
+
+Login form:
+export default reduxForm({		# reduxForm()() connects the form to Redux
+  form: 'login'				# login is set as the key to the object returned by FormReducer
+})(Login);
+
+<form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>  # handleSubmit comes from redux-form, handleFormSubmit defined in class
+
+<fieldset className="form-group">
+  <label>Email</label>
+  <Field name="email" component="input" className="form-control" type="text" placeholder="Email"/>	# Field connects component to store
+</fieldset>		# component value are made available through this.props.handleSubmit
+
+<fieldset className="form-group">
+  <label>Password</label>
+  <Field name="password" component="input" className="form-control" type="password" placeholder="Password"/>
+</fieldset>
+
+<button action="submit" className="btn btn-primary">Sign In</button>
+
+Signup form:
+<Field name="email" type="text" component={this.renderField} label="Email" />
+<Field name="password" type="password" component={this.renderField} label="Password" />
+<Field name="passwordConfirmation" type="password" component={this.renderField} label="Password Confirmation" />
+
+renderField = ({ input, label, type, meta: { touched, error } }) => (		# pull out fields and asign to own variables
+
+<input {...input} placeholder={label} className="form-control" type={type} />	# ...input merges in the values from Field
+
+export const SIGN_IN_USER = 'SIGN_IN_USER';		# actions to sign user in and out
+export const SIGN_OUT_USER = 'SIGN_OUT_USER';
+
+switch (action.type) {
+    case SIGN_IN_USER:					# reducer for authorization
+      return {
+        ...state, authenticated: true
+    }
+}
+
+bindActionCreators - used when you're passing action creators down as props from a container to a component that's not aware of Redux
+
+
